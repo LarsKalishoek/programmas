@@ -115,8 +115,6 @@ def empty():
         deck.append(dealer[0])
         dealer.pop(0)
     random.shuffle(deck)
-    print(player)
-    time.sleep(15)
 
 
 
@@ -188,6 +186,8 @@ def dealerRound():
     score = calcCards(dealer)
     refresh("dealer")
     time.sleep(1)
+    if calcCards(player) > 21:
+        endround()
     if score < 17:
         buy(dealer)
         dealerRound()
@@ -204,7 +204,9 @@ def gameRound():
     clear()
     print("Your tokens", tokens)
     bet = input("How many tokens do you want to bet?  : ")
-    if bet.isdigit == False:
+    if bet.isdigit() == False:
+        gameRound()
+    if int(bet) != float(bet):
         gameRound()
     tokens -= int(bet)
     bet = int(bet)
